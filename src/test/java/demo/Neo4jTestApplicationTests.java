@@ -10,7 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.neo4j.core.GraphDatabase;
+import org.springframework.data.neo4j.support.Neo4jTemplate;
+import org.springframework.data.neo4j.support.node.Neo4jHelper;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.BeforeTransaction;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.cristian.mylab.Neo4jTestApplication;
 import com.cristian.mylab.entity.Person;
 import com.cristian.mylab.repository.PersonRepository;
@@ -25,7 +31,18 @@ public class Neo4jTestApplicationTests {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	
+	@Autowired
+	private Neo4jTemplate template;
+	
+	@Rollback(false)
+	@BeforeTransaction
+	public void cleanUpGraph() {
+		Neo4jHelper.cleanDb(template);
+	}
+	
 	@Test
+	@Transactional
 	public void contextLoads() throws IOException {
 		Person carlos = new Person("Carlos");
 		Person cristian = new Person("Cristian");
