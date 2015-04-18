@@ -84,7 +84,12 @@ public class Neo4jTestApplicationTests {
 					person.getName().equals(pepe.getName()) || 
 					person.getName().equals(juanan.getName()));
 		}
-
+		
+		juanan = personRepository.findByName(juanan.name);
+		personRepository.delete(juanan);
+		
+		 Person findByName = personRepository.findByName("juanan");
+		 Assert.assertNull(findByName);
 	}
 
 }
