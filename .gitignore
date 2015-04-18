@@ -4,3 +4,4 @@ t.properties
 .settings
 target/
 git.properties
+cristianNeo4jTest.db/
