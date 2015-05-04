@@ -13,7 +13,7 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 @NodeEntity
 public class Person {
 
-	@GraphId Long id;
+    @GraphId Long id;
     public String name;
 
     public Person() {}
